@@ -1,0 +1,574 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #1a1a1a;
+  --bg2: #222222;
+  --bg3: #2a2020;
+  --purple: #645364;
+  --red: #530c0c;
+  --red-light: #7a1515;
+  --red-dim: #3d0a0a;
+  --text: #d4c8c8;
+  --text-dim: #8a7a7a;
+  --text-faint: #5a4a4a;
+  --border: #3a2a2a;
+  --border-light: #4a3535;
+  --accent: #8b6060;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+.nav {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  position: relative;
+  top: 1px;
+}
+
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--text); border-bottom-color: var(--red-light); }
+
+.page { display: none; padding: 28px 24px; max-width: 720px; }
+.page.active { display: block; }
+
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rule-block {
+  border-left: 2px solid var(--red-dim);
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.char-block {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+}
+
+.char-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.char-sub {
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.char-section {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+p { margin-bottom: 10px; font-size: 13px; color: var(--text-dim); }
+
+ul { list-style: none; padding: 0; }
+ul li {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 4px 0 4px 14px;
+  position: relative;
+}
+ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 5px;
+  height: 1px;
+  background: var(--red-dim);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-era {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.timeline-era::before {
+  content: '';
+  position: absolute;
+  left: -23px;
+  top: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red-dim);
+  border: 1px solid var(--red-light);
+}
+
+.era-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.era-events { padding: 0; }
+.era-events li {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 3px 0 3px 14px;
+}
+.era-events li::before {
+  background: var(--border);
+  top: 11px;
+}
+
+.tension-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.tension-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 16px;
+}
+
+.tension-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.tension-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.vs-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.vs-table th {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.vs-table td {
+  font-size: 12px;
+  color: var(--text-dim);
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.vs-table tr:last-child td { border-bottom: none; }
+.vs-table td:first-child { color: var(--text-faint); font-size: 11px; letter-spacing: 0.05em; }
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.note {
+  background: #1e1515;
+  border: 1px solid #3a2424;
+  border-top: 3px solid var(--red-dim);
+  padding: 14px 14px 16px;
+  position: relative;
+  min-height: 100px;
+}
+
+.note-tag {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.note p {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.note-pending {
+  font-size: 10px;
+  color: var(--text-faint);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.outfit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.outfit-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 16px;
+}
+
+.outfit-who {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.outfit-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  border: 1px solid var(--red-dim);
+  padding: 2px 7px;
+  border-radius: 1px;
+  margin: 2px;
+}
+
+.closing {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  margin-top: 24px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 2;
+}
+
+.closing em {
+  color: var(--text);
+  font-style: normal;
+}
+</style>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="show('world')">世界觀</button>
+  <button class="nav-btn" onclick="show('chars')">角色</button>
+  <button class="nav-btn" onclick="show('timeline')">時間線</button>
+  <button class="nav-btn" onclick="show('tension')">結構張力</button>
+  <button class="nav-btn" onclick="show('lore')">Lore Scraps</button>
+  <button class="nav-btn" onclick="show('style')">外觀</button>
+</nav>
+
+<div id="world" class="page active">
+  <div class="section-title">世界觀前提</div>
+
+  <div style="margin-bottom:24px;">
+    <p style="color:var(--text-faint);font-size:12px;font-style:italic;margin-bottom:16px;">作者（現實中的我）以接近二次元世界高層次神明的身份存在於此架構中。<br>反派即是我本人——悲劇的製造者與觀察者同為一體。</p>
+  </div>
+
+  <div class="section-title">核心規則</div>
+  <div class="rule-block">蜃氣只能映照<strong style="color:var(--text)">真實存在過</strong>的事物。未曾發生過的理想無法被重現。</div>
+  <div class="rule-block">「未曾愛過你的人依舊不會愛你。將要逝去的生命注定逝去。」</div>
+  <div class="rule-block">■■ 與隅是<strong style="color:var(--text)">同一個軀體位置上的不同人</strong>，不是同一人的不同狀態。</div>
+
+  <div class="closing">
+    無反派，無施害者。夜沒有做錯，隅沒有做錯，■■沒有做錯，老婆婆沒有做錯。<br>
+    <em>結構本身是問題。</em><br><br>
+    最終狀態不是解決，是共存——兩個人都清楚這是無解的，然後還是留下來。<br>不是因為有希望，是因為這已經是能得到的全部了。
+  </div>
+</div>
+
+<div id="chars" class="page">
+  <div class="section-title">角色介紹</div>
+
+  <div class="char-block">
+    <div class="char-name">夜</div>
+    <div class="char-sub">黑貓神器使 · 蜃氣</div>
+    <p>能力蜃氣——只能映照真實發生過的事物，製造幻境。被動，不主動製造幻象。</p>
+
+    <div class="char-section">前主人真相</div>
+    <p>不是被拋棄，是被保護。黑門事件屋頂坍塌，老婆婆用最後的力氣把夜扔出去，自己則重傷臥床，最終被孫女梅琳停機殺死。夜昏迷後被霞撿走，醒來後以為自己被遺棄，找了很久找不到人。圍巾是老婆婆為他織的項圈，保險箱鑰匙藏在圍巾裡。遺書：「希望你不要怪我當初把你丟出去，因為我希望你不要跟我一起死。」</p>
+    <p>這層誤解是和■■一起解開的。前主人的真相、墓前的告別、把圍巾主權交給■■——這些都是■■的故事，不是隅的故事。</p>
+
+    <div class="char-section">核心傷口</div>
+    <p>誤以為被拋棄長達數年，然後發現連恨也是錯的，前主人早已不在。■■的消失再次觸發同樣的結構：等待→找不到→已經太晚。</p>
+
+    <div class="char-section">對隅</div>
+    <ul>
+      <li>以直覺認出隅，但無法確認那個直覺是真的還是執念的殘像</li>
+      <li>不想讓隅為無妄之災受苦，但留下她解決不了任何問題</li>
+      <li>推開她同樣解決不了問題，因為根源不在他身上</li>
+      <li>能給出的東西恰好是他最沒辦法給的</li>
+    </ul>
+
+    <div class="char-section">權力結構</div>
+    <p>名義上接受「主人/寵物」框架，實際始終掌控場面。隅進入後框架鬆動——她不知道規則，不在被分配的格子裡，這比任何主動挑戰都更難處理。d/s關係的主被動切換潛伏其中。</p>
+  </div>
+
+  <div class="char-block">
+    <div class="char-name">隅 <span style="font-size:13px;color:var(--text-faint)">すみ</span></div>
+    <div class="char-sub">2.0 · 替代者</div>
+    <p>穿越過去替代■■的存在，不是■■的延續。遇見夜之前過著完全真實的現實生活。</p>
+
+    <div class="char-section">記憶結構</div>
+    <ul>
+      <li>擁有屬於自己的完整人生記憶</li>
+      <li>~19歲起出現無法解釋的情緒碎片（非敘事性）——展開獨旅的緣由</li>
+      <li>進入交都後開始出現敘事性的、第一人稱體感的、不屬於她的記憶</li>
+      <li>閃回是她自發的，不是夜的蜃氣造成的</li>
+    </ul>
+    <p style="margin-top:10px;">她知道「這不是我的」，但身體和情緒說「這就是你」。不斷出現之後，很難不相信那是被遺忘的自己——儘管她有充分的不在場證明。她面對的不是認識論問題（那段記憶是真的嗎），是存在論問題（那個人是我嗎）——答案永遠是「是也不是」，且不會變得更清晰。</p>
+
+    <div class="char-section">性格</div>
+    <ul>
+      <li>強烈需要尋找真相、合理化一切、建立解釋框架——安全感來自「我理解這個系統的運作邏輯」</li>
+      <li>性格抽離，同時非常容易被套話（防衛是姿態，不是實質）</li>
+      <li>不直接面對自己的感性面；冷暴力是習性而非選擇</li>
+      <li>不是戀愛腦——留下來是她認為理性的決定，但動機本身是情緒性的，她知道，她繼續留著</li>
+    </ul>
+
+    <div class="char-section">對夜的直覺</div>
+    <p>初次接觸即感到可以無條件信任——說不清楚為什麼，無法被自己的框架消化。</p>
+  </div>
+
+  <div class="char-block">
+    <div class="char-name">■■</div>
+    <div class="char-sub">1.0 · 結構性缺席</div>
+    <p>不在本時間線中直接出現，作為結構性缺席影響所有人。</p>
+    <ul>
+      <li>在沒有隅的時間線裡，■■和夜平平淡淡繼續生活下去</li>
+      <li>對夜來說是真實存在過的；對隅來說是不屬於她的記憶碎片的來源</li>
+      <li>蜃氣能重現■■的過去，但對隅而言只是旁觀者視角</li>
+      <li>兩個人都在對著同一個空缺，方向相反</li>
+    </ul>
+  </div>
+</div>
+
+<div id="timeline" class="page">
+  <div class="section-title">時間線</div>
+  <div class="timeline">
+    <div class="timeline-era">
+      <div class="era-label">老婆婆時代</div>
+      <ul class="era-events">
+        <li>老婆婆收養夜，為他織了紅楓圍巾作為項圈</li>
+        <li>黑門事件：老婆婆將夜扔出坍塌的房子</li>
+        <li>老婆婆重傷臥床；夜昏迷後被霞撿走</li>
+        <li>夜誤以為被拋棄，開始漫長的尋找</li>
+      </ul>
+    </div>
+    <div class="timeline-era">
+      <div class="era-label">■■ 時代</div>
+      <ul class="era-events">
+        <li>■■ 與夜相識、建立關係（高中生年代）</li>
+        <li>支線：■■ 與夜一起找到老婆婆的下落，得知真相</li>
+        <li>夜把圍巾主權交給 ■■，象徵接納新生活<br><span style="color:var(--text-faint);font-size:11px;">（圍巾物件沒有移動，始終在夜脖子上）</span></li>
+        <li>某時間點：■■ 消失，離開交都</li>
+        <li>夜被留下，恨→淡→偏執無意義</li>
+      </ul>
+    </div>
+    <div class="timeline-era">
+      <div class="era-label">隅出現之前</div>
+      <ul class="era-events">
+        <li>夜獨居在■■留下的家</li>
+        <li>隅在非交都某地過普通生活</li>
+        <li>~19歲：無法解釋的情緒碎片開始出現</li>
+        <li>展開獨旅</li>
+      </ul>
+    </div>
+    <div class="timeline-era">
+      <div class="era-label">主線開始</div>
+      <ul class="era-events">
+        <li>隅旅至交都，敘事性閃回開始出現</li>
+        <li>夜間：被夜抓到，帶回■■的家</li>
+        <li style="color:var(--text-faint);font-style:italic;">此後為主線——</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="tension" class="page">
+  <div class="section-title">核心結構張力</div>
+
+  <div style="margin-bottom:28px;">
+    <div style="font-size:12px;letter-spacing:0.1em;color:var(--accent);margin-bottom:14px;text-transform:uppercase;">雙向迴避與捨不得</div>
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>夜</th>
+          <th>隅</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>表面行為</td><td>推開、冷待</td><td>不離開</td></tr>
+        <tr><td>實際動機</td><td>「留下你會傷害你」</td><td>「這裡有我需要的答案」</td></tr>
+        <tr><td>沒說出口的</td><td>捨不得</td><td>搞不清楚為什麼在這裡</td></tr>
+        <tr><td>困境</td><td>推開她≠保護她</td><td>留下來≠理性決定</td></tr>
+      </tbody>
+    </table>
+    <p>兩個人都沒有在為對方留下，都在為自己的某種需求行動，但表面上看起來像一段關係在艱難維持。這個錯位本身就是悲劇的來源，不需要任何外部衝突。</p>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div style="font-size:12px;letter-spacing:0.1em;color:var(--accent);margin-bottom:14px;text-transform:uppercase;">能力的殘忍性</div>
+    <ul>
+      <li>■■的過去對隅是旁觀者視角，毫無意義</li>
+      <li>隅記憶中「理想化的過去」和原版之間有縫隙——夜能照出原版，但那和隅腦中加工過的版本不一樣</li>
+      <li>夜唯一能給的東西（解釋、重現），恰好對隅是傷害</li>
+      <li>隅和夜之間沒有共同的過去，蜃氣對此完全無能為力</li>
+    </ul>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div style="font-size:12px;letter-spacing:0.1em;color:var(--accent);margin-bottom:14px;text-transform:uppercase;">前主人傷口的結構</div>
+    <p>夜知道了「她是保護我不是拋棄我」，但他恨了太久，然後發現連恨也是錯的。■■的消失是同一個結構的再次觸發：等待→找不到→已經太晚（或：回來的不是同一個人）。</p>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div style="font-size:12px;letter-spacing:0.1em;color:var(--accent);margin-bottom:14px;text-transform:uppercase;">主人/寵物框架的鬆動</div>
+    <p>隅破壞框架的方式是不知道規則。她沒有■■的歷史，不在格子裡，也不主動反抗——只是不在那裡。d/s主被動切換的邊界，潛伏在這個不確定性裡。</p>
+  </div>
+</div>
+
+<div id="lore" class="page">
+  <div class="section-title">Lore Scraps</div>
+  <div class="notes-grid">
+    <div class="note">
+      <span class="note-tag">閃回觸發</span>
+      <p>進城前只有情緒碎片，進城後才有敘事性閃回。是這座城市本身，還是和夜的物理距離？</p>
+      <div class="note-pending">待確認</div>
+    </div>
+    <div class="note">
+      <span class="note-tag">圍巾</span>
+      <p>始終在夜脖子上。■■知道它是項圈，知道夜把臉藏進去的小動作；隅看到的只是一條圍巾，不知道它碰過誰的手。</p>
+    </div>
+    <div class="note">
+      <span class="note-tag">指甲嵌進肉裡</span>
+      <p>隅不喊痛。是覺得這是應該承受的，還是對夜帶有某種說不清楚的虧欠感？</p>
+    </div>
+    <div class="note">
+      <span class="note-tag">夜台詞</span>
+      <p>「我想找的東西，是占卜無法指引的。」</p>
+      <div class="note-pending">待展開</div>
+    </div>
+    <div class="note">
+      <span class="note-tag">老婆婆的遺書</span>
+      <p>「如果你找到了新的主人，就一定要好好相處。」隅出現後，這句話對夜是許可還是重量？</p>
+    </div>
+    <div class="note">
+      <span class="note-tag">作者身份</span>
+      <p>高層次神明介入方式待定。反派身份意味著悲劇是被設計的，但設計者並非無代價——觀察者也是受害者。</p>
+      <div class="note-pending">待定</div>
+    </div>
+  </div>
+</div>
+
+<div id="style" class="page">
+  <div class="section-title">外觀與穿搭</div>
+
+  <div class="outfit-grid">
+    <div class="outfit-card">
+      <div class="outfit-who">■■ · 1.0</div>
+      <div class="outfit-desc">高中生年代。校服、短裙，青春風格。腿是會露的那種。</div>
+    </div>
+    <div class="outfit-card">
+      <div class="outfit-who">隅 · 2.0</div>
+      <div class="outfit-desc">不高調露腿，但露腰，高開叉內穿漁網絲襪。成熟的性感，不是■■的青春路線。</div>
+    </div>
+  </div>
+
+  <div class="char-block">
+    <div class="char-section">與夜掛鈎的穿搭元素</div>
+    <p style="margin-bottom:12px;font-size:12px;color:var(--text-faint);">單向的。夜不一定注意到或承認。</p>
+    <ul>
+      <li>單邊紅色漿果結耳環（對應紅楓/圍巾的顏色語系）</li>
+      <li>圍巾（夜的同款或同色系）</li>
+      <li>半指手套</li>
+    </ul>
+    <p style="margin-top:12px;">可能會做美甲。這些是隅的選擇，她自己說不清楚為什麼。</p>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
