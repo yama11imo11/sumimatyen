@@ -207,7 +207,19 @@ body {
 .nav-btn:hover { color: var(--text); }
 .nav-btn.active { color: var(--text); border-bottom-color: var(--red-light); }
 
-.page { display: none; padding: 28px 24px; max-width: 720px; }
+.page {
+  display: none;
+  padding: 28px 24px;
+  max-width: 720px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    margin: 0 auto;
+    padding: 36px 32px;
+  }
+}
+
 .page.active { display: block; }
 
 .section-title {
